@@ -1,37 +1,11 @@
 <script setup>
-import { getcategory } from "@/apis/category.js";
-import { getbannerlist } from "@/apis/home.js";
-import { onUpdated, ref, watch, onMounted } from "vue";
-import { useRoute } from "vue-router";
 import GoodsItem from '@/views/Home/components/GoodsItem.vue'
-const category = ref({});
-const bannerlist = ref([]);
-const route = useRoute();
-onMounted(() => {
-  getcategory(route.params.id).then((res) => {
-    console.log(res.result);
-    category.value = res.result;
-  });
-  getbannerlist({
-    distributionSite: "2",
-  }).then((res) => {
-    // console.log(res.result);
-    bannerlist.value = res.result;
-  });
-});
+import {useBanner} from './hooks/useBanner'//hooks
+import {useCategory} from './hooks/useCategory'//hooks
+const {bannerlist}=useBanner()
+const {category} =useCategory()
 
-/* onUpdated(() => { 会一直执行updated？？
-  getcategory(route.params.id).then((res) => {
-    console.log(res.result);
-    category.value = res.result;
-  });
-}); */
-// watch(route, () => {
-//   getcategory(route.params.id).then((res) => {
-//     // console.log(res.result)
-//     category.value = res.result;
-//   });
-// });
+
 </script>
 
 <template>
@@ -57,7 +31,7 @@ onMounted(() => {
         <h3>全部分类</h3>
         <ul>
           <li v-for="i in category.children" :key="i.id">
-            <RouterLink to="/">
+            <RouterLink :to="`/category/sub/${i.id}`">
               <img v-imglazy="i.picture" />
               <p>{{ i.name }}</p>
             </RouterLink>

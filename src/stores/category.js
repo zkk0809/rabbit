@@ -6,6 +6,7 @@ export const usecategory = defineStore('category', () => {
     const getcategorylist = () => {
         if (categorylist.value.length === 0) {
             getcategory().then(res => {
+                // console.log(res.result)
                 categorylist.value = res.result
             })
         }

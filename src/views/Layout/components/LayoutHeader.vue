@@ -1,5 +1,6 @@
 <script setup>
 import {usecategory} from '@/stores/category.js'
+import HeaderCar from './HeaderCar.vue'
 const category=usecategory()
 
 </script>
@@ -21,7 +22,7 @@ const category=usecategory()
         <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
-      
+      <header-car></header-car>
     </div>
   </header>
 </template>
